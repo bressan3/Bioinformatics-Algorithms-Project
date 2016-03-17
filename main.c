@@ -19,7 +19,7 @@ void swap(int *num1, int *num2){
     *num2 = numAux;
 }
 
-int particiona(int *numArray, int start, int end){
+int divide(int *numArray, int start, int end){
     int pivot = numArray[end];
     int wallIndex = start;
     for (int i = start; i < end; i++) {
@@ -32,11 +32,11 @@ int particiona(int *numArray, int start, int end){
     return wallIndex;
 }
 
-void quickSort(int vet[], int inicio, int fim){
-    if(inicio < fim){
-        int p = particiona(vet, inicio, fim);
-        quickSort(vet, inicio, p - 1); //particiona o vetor antes do pivo (indice final p - 1).
-        quickSort(vet, p + 1, fim); //particiona o vetor depois do pivo (indice inicial p + 1).
+void quickSort(int *numArray, int start, int end){
+    if(start < end){
+        int p = divide(numArray, start, end);
+        quickSort(numArray, start, p - 1); //particiona o vetor antes do pivo (indice final p - 1).
+        quickSort(numArray, p + 1, end); //particiona o vetor depois do pivo (indice inicial p + 1).
     }
 }
 
