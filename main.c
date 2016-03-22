@@ -11,34 +11,8 @@
 #include <string.h>
 #include <stdbool.h>
 #include "List.h"
+#include "QuickSort.h"
 
-
-void swap(int *num1, int *num2){
-    int numAux = *num1;
-    *num1 = *num2;
-    *num2 = numAux;
-}
-
-int divide(int *numArray, int start, int end){
-    int pivot = numArray[end];
-    int wallIndex = start;
-    for (int i = start; i < end; i++) {
-        if (numArray[i] <= pivot) {
-            swap(&numArray[i], &numArray[wallIndex]);
-            wallIndex++;
-        }
-    }
-    swap(&numArray[wallIndex], &numArray[end]);
-    return wallIndex;
-}
-
-void quickSort(int *numArray, int start, int end){
-    if(start < end){
-        int p = divide(numArray, start, end);
-        quickSort(numArray, start, p - 1); //particiona o vetor antes do pivo (indice final p - 1).
-        quickSort(numArray, p + 1, end); //particiona o vetor depois do pivo (indice inicial p + 1).
-    }
-}
 
 int main(int argc, const char * argv[]) {
     
@@ -64,6 +38,9 @@ int main(int argc, const char * argv[]) {
     
     free(numList);
     free(numArray);
+    
+    printf("Done! Press any key to exit.");
+    getchar();
     
     return 0;
 }
