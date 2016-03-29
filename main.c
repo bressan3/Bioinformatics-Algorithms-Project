@@ -32,12 +32,13 @@ int main(int argc, const char * argv[]) {
     List *numList = createList();
     
     while(fgets (line, sizeof line, file) != NULL){
-        if (isdigit(line[0]))
+        if (isdigit(line[0]) || (line[0] == '-' && isdigit(line[1])))
             addValue(numList, atoi(line));
     }
     
     fclose(file);
     
+    // printList(numList);
     int *numArray = convertToArray(numList);
     
     // Must be an absolute path
