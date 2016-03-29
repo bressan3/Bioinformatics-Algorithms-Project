@@ -10,31 +10,48 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdbool.h>
+#include <ctype.h>
 #include "List.h"
 #include "QuickSort.h"
 
 
 int main(int argc, const char * argv[]) {
     
-    List *numList = createList();
-    char keyboardInput[10];
-    while (true) {
-        printf("Enter a value for the list. Type end to finish: ");
-        gets(keyboardInput);
-        if (strcmp(keyboardInput, "end")) {
-            addValue(numList, atoi(keyboardInput));
-        } else break;
+    printf("Reading File...\n");
+    FILE *file;
+    
+    
+    // Must be an absolute path
+    file = fopen("/Users/Lucas/Documents/Github/Bioinformatics Algorithms/QuickSort/in.txt", "r");
+    if (file == NULL) {
+        printf("File not found!");
+        exit(-1);
     }
     
-    int *numArray = malloc(sizeof(numList->size));
-    numArray = convertToArray(numList);
+    char line[128];
+    List *numList = createList();
+    
+    while(fgets (line, sizeof line, file) != NULL){
+        if (isdigit(line[0]))
+            addValue(numList, atoi(line));
+    }
+    
+    fclose(file);
+    
+    int *numArray = convertToArray(numList);
+    
+    // Must be an absolute path
+    file = fopen("/Users/Lucas/Documents/Github/Bioinformatics Algorithms/QuickSort/out.txt", "w");
+    fprintf(file, "Ordered sequence:\n\n");
     
     printf("QuickSort: ");
-    
     quickSort(numArray, 0, numList->size - 1);
     for (int i = 0; i < numList->size; i++) {
+        fprintf(file, "%d\n", numArray[i]);
         printf("%d ", numArray[i]);
     }printf("\n");
+    
+    fclose(file);
     
     free(numList);
     free(numArray);
