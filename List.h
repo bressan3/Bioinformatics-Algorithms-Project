@@ -19,16 +19,22 @@ typedef struct sList{
     int size;
 }List;
 
+// Starts a new list
 List* createList();
 
+// Creates a new node
 Node* createNode(int value);
 
+// Adds a value to a list
 void addValue(List* list, int value);
 
+// Returns the next node in relation to curNode
 Node* nextNode(Node* curNode);
 
+// Converts the linked list to an array of integers and returns it
 int* convertToArray(List *list);
 
+// Prints a linked list node by node in sequence (used for testing purposes)
 void printList(List *list);
 
 #endif /* List_h */

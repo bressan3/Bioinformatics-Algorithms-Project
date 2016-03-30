@@ -23,11 +23,13 @@ int main(int argc, const char * argv[]) {
     
     // Must be an absolute path
     file = fopen("/Users/Lucas/Documents/Github/Bioinformatics Algorithms/QuickSort/in.txt", "r");
+    // Checks if file exists in the specified path
     if (file == NULL) {
         printf("File not found!");
         exit(-1);
     }
     
+    // Add the values from the file into a linked list
     char line[128];
     List *numList = createList();
     
@@ -39,12 +41,14 @@ int main(int argc, const char * argv[]) {
     fclose(file);
     
     // printList(numList);
+    // Converts the linked list to an array
     int *numArray = convertToArray(numList);
     
     // Must be an absolute path
     file = fopen("/Users/Lucas/Documents/Github/Bioinformatics Algorithms/QuickSort/out.txt", "w");
     fprintf(file, "Ordered sequence:\n\n");
     
+    // Writes the out.txt file with the final results of our ordering algorithm
     printf("QuickSort: ");
     quickSort(numArray, 0, numList->size - 1);
     for (int i = 0; i < numList->size; i++) {
@@ -54,6 +58,7 @@ int main(int argc, const char * argv[]) {
     
     fclose(file);
     
+    // Frees alocated memory
     free(numList);
     free(numArray);
     
