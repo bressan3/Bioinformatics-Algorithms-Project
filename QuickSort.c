@@ -7,6 +7,7 @@
 //
 
 #include <stdio.h>
+#include <stdlib.h>
 
 
 void swap(int *num1, int *num2){
@@ -16,6 +17,8 @@ void swap(int *num1, int *num2){
 }
 
 int divide(int *numArray, int start, int end){
+    int pivotPostition = rand() % (end + 1 - start) + start;
+    swap(&numArray[end], &numArray[pivotPostition]);
     int pivot = numArray[end];
     int wallIndex = start;
     for (int i = start; i < end; i++) {
