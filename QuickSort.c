@@ -60,12 +60,9 @@ int getBestRandomPosition(int *numArray, int start, int end){
 }
 
 int divide(int *numArray, int start, int end){
-    int pivotPostition = 0;
+    int pivotPostition = rand() % (end + 1 - start) + start;
     printf("Start: %d, End: %d, End - Start = %d\n", start, end, end-start);
-    if (end - start < 3) {
-        pivotPostition = rand() % (end + 1 - start) + start;
-    }
-    else {
+    if (end - start >= 3) {
         pivotPostition = getBestRandomPosition(numArray, start, end);
     }
     swap(&numArray[end], &numArray[pivotPostition]);
