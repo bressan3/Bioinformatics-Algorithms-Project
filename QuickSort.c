@@ -20,6 +20,8 @@ void swap(int *num1, int *num2){
 int getBestRandomPosition(int *numArray, int start, int end){
     int randomPositions[] = {-1, -1, -1};
     
+    /* Assign the three random positions we need to randomPositions[]
+     and makes sure that we don't have duplicated positions */
     for (int i = 0; i < 3; i++) {
         int startPositionAux = rand() % (end + 1 - start) + start;
         int j = -1;
@@ -39,17 +41,14 @@ int getBestRandomPosition(int *numArray, int start, int end){
     //Finding the middle term
     int min, mid = numArray[randomPositions[2]], max;
     if (numArray[randomPositions[0]] > numArray[randomPositions[1]]){
-        printf("%d > %d", numArray[randomPositions[0]], numArray[randomPositions[1]]);
         max = randomPositions[0];
         min = randomPositions[1];
     } else {
-        printf("%d < %d", numArray[randomPositions[0]], numArray[randomPositions[1]]);
         max = randomPositions[1];
         min = randomPositions[0];
     }
     
     if (numArray[randomPositions[2]] > numArray[max]){
-        printf("\n%d > %d", numArray[randomPositions[2]], numArray[max]);
         mid = max;
     }
     else if (numArray[randomPositions[2]] < numArray[min])
@@ -57,23 +56,13 @@ int getBestRandomPosition(int *numArray, int start, int end){
     else
         mid = randomPositions[2];
     
-    printf("\nPositions: ");
-    for (int i = 0; i < 3; i++) {
-        printf("%d, ", randomPositions[i]);
-    }
-    printf("\nValues: ");
-    for (int i = 0; i < 3; i++) {
-        printf("%d, ", numArray[randomPositions[i]]);
-    }
-    printf("\nMid: %d ", numArray[mid]);
-    // printf("%d, %d, %d", rand() % (end + 1 - start) + start, rand() % (end + 1 - start) + start, rand() % (end + 1 - start) + start);
-    
     return mid;
 }
 
 int divide(int *numArray, int start, int end){
+    /* If end - start < 2 it cant get and compare 3 positions so it
+     just gets a random pivot in the given range */
     int pivotPostition = rand() % (end + 1 - start) + start;
-    printf("Start: %d, End: %d, End - Start = %d\n", start, end, end-start);
     if (end - start >= 2) {
         pivotPostition = getBestRandomPosition(numArray, start, end);
     }
