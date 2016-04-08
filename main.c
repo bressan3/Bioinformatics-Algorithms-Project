@@ -26,13 +26,13 @@
 int main(int argc, const char * argv[]) {
     
     printf("Reading File...\n");
-    FILE *file;
+    FILE *f;
     
     
     // Must be an absolute path
-    file = fopen("/Users/Lucas/Documents/Github/Bioinformatics Algorithms/QuickSort/in.txt", "r");
+    f = fopen("/Users/Lucas/Documents/Github/Bioinformatics Algorithms/QuickSort/in.txt", "r+");
     // Checks if file exists in the specified path
-    if (file == NULL) {
+    if (f == NULL) {
         printf("File not found!");
         exit(-1);
     }
@@ -41,30 +41,31 @@ int main(int argc, const char * argv[]) {
     char line[128];
     List *numList = createList();
     
-    while(fgets (line, sizeof line, file) != NULL){
+    while(fgets (line, sizeof line, f) != NULL){
         if (isdigit(line[0]) || (line[0] == '-' && isdigit(line[1])))
             addValue(numList, atoi(line));
     }
     
-    fclose(file);
+    fclose(f);
     
+    printf("Converting to array");
     // printList(numList);
     // Converts the linked list to an array
     int *numArray = convertToArray(numList);
     
     // Must be an absolute path
-    file = fopen("/Users/Lucas/Documents/Github/Bioinformatics Algorithms/QuickSort/out.txt", "w");
-    fprintf(file, "Ordered sequence:\n\n");
+    f = fopen("/Users/Lucas/Documents/Github/Bioinformatics Algorithms/QuickSort/out.txt", "w");
+    fprintf(f, "Ordered sequence:\n\n");
     
     // Writes the out.txt file with the final results of our ordering algorithm
     printf("QuickSort: ");
     quickSort(numArray, 0, numList->size - 1);
     for (int i = 0; i < numList->size; i++) {
-        fprintf(file, "%d\n", numArray[i]);
+        fprintf(f, "%d\n", numArray[i]);
         printf("%d ", numArray[i]);
     }printf("\n");
     
-    fclose(file);
+    fclose(f);
     
     // Frees alocated memory
     free(numList);

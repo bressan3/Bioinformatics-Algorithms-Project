@@ -20,7 +20,6 @@ int getBestRandomPosition(int *numArray, int start, int end){
     int randomPositions[3] = {-1, -1, -1};
     
     for (int i = 0; i < 3; i++) {
-        printf("");
         int startPositionAux = rand() % (end + 1 - start) + start;
         int j = -1;
         while(randomPositions[j] != startPositionAux){
@@ -61,7 +60,14 @@ int getBestRandomPosition(int *numArray, int start, int end){
 }
 
 int divide(int *numArray, int start, int end){
-    int pivotPostition = getBestRandomPosition(numArray, start, end);
+    int pivotPostition = 0;
+    printf("Start: %d, End: %d, End - Start = %d\n", start, end, end-start);
+    if (end - start < 3) {
+        pivotPostition = rand() % (end + 1 - start) + start;
+    }
+    else {
+        pivotPostition = getBestRandomPosition(numArray, start, end);
+    }
     swap(&numArray[end], &numArray[pivotPostition]);
     int pivot = numArray[end];
     int wallIndex = start;
