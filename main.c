@@ -17,7 +17,7 @@
 
 /*int main(int argc, const char * argv[]) {
     int list[10] = {5,10,-3,15,2,8,-1,7};
-    getBestRandomPosition(list, 0, 7);
+    getBestRandomPosition(list, 0, 2);
     
     return 0;
 }*/

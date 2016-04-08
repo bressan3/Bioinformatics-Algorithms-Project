@@ -8,6 +8,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 
 
 void swap(int *num1, int *num2){
@@ -17,12 +18,12 @@ void swap(int *num1, int *num2){
 }
 
 int getBestRandomPosition(int *numArray, int start, int end){
-    int randomPositions[3] = {-1, -1, -1};
+    int randomPositions[] = {-1, -1, -1};
     
     for (int i = 0; i < 3; i++) {
         int startPositionAux = rand() % (end + 1 - start) + start;
         int j = -1;
-        while(randomPositions[j] != startPositionAux){
+        while(true){
             j++;
             if (randomPositions[j] == startPositionAux) {
                 startPositionAux = rand() % (end + 1 - start) + start;
@@ -36,25 +37,36 @@ int getBestRandomPosition(int *numArray, int start, int end){
     }
     
     //Finding the middle term
-    int min, mid, max;
+    int min, mid = numArray[randomPositions[2]], max;
     if (numArray[randomPositions[0]] > numArray[randomPositions[1]]){
+        printf("%d > %d", numArray[randomPositions[0]], numArray[randomPositions[1]]);
         max = randomPositions[0];
         min = randomPositions[1];
     } else {
+        printf("%d < %d", numArray[randomPositions[0]], numArray[randomPositions[1]]);
         max = randomPositions[1];
         min = randomPositions[0];
     }
     
-    if (numArray[randomPositions[2]] > max)
+    if (numArray[randomPositions[2]] > numArray[max]){
+        printf("\n%d > %d", numArray[randomPositions[2]], numArray[max]);
         mid = max;
-    else if (numArray[randomPositions[2]] < min)
+    }
+    else if (numArray[randomPositions[2]] < numArray[min])
         mid = min;
+    else
+        mid = randomPositions[2];
     
-    /*for (int i = 0; i < 3; i++) {
+    printf("\nPositions: ");
+    for (int i = 0; i < 3; i++) {
         printf("%d, ", randomPositions[i]);
     }
-    printf("Mid: %d ", mid);
-    printf("%d, %d, %d", rand() % (end + 1 - start) + start, rand() % (end + 1 - start) + start, rand() % (end + 1 - start) + start);*/
+    printf("\nValues: ");
+    for (int i = 0; i < 3; i++) {
+        printf("%d, ", numArray[randomPositions[i]]);
+    }
+    printf("\nMid: %d ", numArray[mid]);
+    // printf("%d, %d, %d", rand() % (end + 1 - start) + start, rand() % (end + 1 - start) + start, rand() % (end + 1 - start) + start);
     
     return mid;
 }
@@ -62,7 +74,7 @@ int getBestRandomPosition(int *numArray, int start, int end){
 int divide(int *numArray, int start, int end){
     int pivotPostition = rand() % (end + 1 - start) + start;
     printf("Start: %d, End: %d, End - Start = %d\n", start, end, end-start);
-    if (end - start >= 3) {
+    if (end - start >= 2) {
         pivotPostition = getBestRandomPosition(numArray, start, end);
     }
     swap(&numArray[end], &numArray[pivotPostition]);
